@@ -663,11 +663,17 @@ enum ExpenseClassificationType: string
         };
     }
 
+    /**
+     * @return ($category is null ? CategoryClassificationCollection : TypeClassificationCollection)
+     */
     public static function for(InvoiceType $type, ?ExpenseClassificationCategory $category = null): CategoryClassificationCollection|TypeClassificationCollection
     {
         return Classifications::expenseClassifications($type, $category);
     }
 
+    /**
+     * @return list<self>
+     */
     public static function vatClassifications(): array
     {
         return [

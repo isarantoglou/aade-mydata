@@ -10,17 +10,28 @@ use Firebed\AadeMyData\Enums\IncomeClassificationCategory;
 use IteratorAggregate;
 use Traversable;
 
+/**
+ * @implements ArrayAccess<array-key, mixed>
+ * @implements IteratorAggregate<string, list<string>>
+ */
 class CategoryClassificationCollection implements ArrayAccess, IteratorAggregate
 {
+    /** @var array<string, list<string>> Classification types per category */
     private array $classifications;
     private bool $isIncome;
 
+    /**
+     * @param array<string, list<string>> $classifications Classification types per category
+     */
     public function __construct(array $classifications, bool $isIncome)
     {
         $this->classifications = $classifications;
         $this->isIncome = $isIncome;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function toKeyLabel(): array
     {
         $results = [];
@@ -33,6 +44,9 @@ class CategoryClassificationCollection implements ArrayAccess, IteratorAggregate
         return $results;
     }
 
+    /**
+     * @return array<string, array<string, string>>
+     */
     public function toKeyLabels(): array
     {
         $results = [];
@@ -45,6 +59,9 @@ class CategoryClassificationCollection implements ArrayAccess, IteratorAggregate
         return $results;
     }
 
+    /**
+     * @return list<string>
+     */
     public function keys(): array
     {
         return array_keys($this->classifications);
@@ -58,6 +75,9 @@ class CategoryClassificationCollection implements ArrayAccess, IteratorAggregate
         );
     }
 
+    /**
+     * @return array<string, list<string>>
+     */
     public function toArray(): array
     {
         return $this->classifications;
@@ -91,6 +111,10 @@ class CategoryClassificationCollection implements ArrayAccess, IteratorAggregate
         return $this->offsetGet($offset);
     }
 
+    /**
+     * @param string $offset The classification category
+     * @param list<string> $value The classification types of the category
+     */
     public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->classifications[$offset] = $value;

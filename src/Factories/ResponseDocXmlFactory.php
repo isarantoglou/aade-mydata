@@ -8,11 +8,16 @@ use Firebed\AadeMyData\Models\Statements\StatementResponse;
 
 class ResponseDocXmlFactory
 {
+    /** @var list<Response|StatementResponse> */
     private array $responses = [];
 
+    /**
+     * @param Response|StatementResponse|Factory<Response>|Factory<StatementResponse> $response
+     */
     public function addResponse(Response|StatementResponse|Factory $response): void
     {
         if ($response instanceof Factory) {
+            /** @var Response|StatementResponse $response A factory with the default count makes a single model */
             $response = $response->make();
         }
 
@@ -59,6 +64,6 @@ class ResponseDocXmlFactory
             }
         }
 
-        return $dom->saveXML();
+        return (string) $dom->saveXML();
     }
 }

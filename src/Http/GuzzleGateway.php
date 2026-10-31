@@ -10,7 +10,11 @@ use Firebed\AadeMyData\Exceptions\MyDataTimeoutException;
 use Firebed\AadeMyData\Exceptions\RateLimitExceededException;
 use Firebed\AadeMyData\Exceptions\TransmissionFailedException;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\NetworkTimeoutException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ResponseException;
+use GuzzleHttp\Exception\ResponseTimeoutException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Default gateway: sends requests to the AADE myDATA REST API using Guzzle.
@@ -18,6 +22,7 @@ use GuzzleHttp\Exception\RequestException;
 class GuzzleGateway implements Gateway
 {
     /**
+     * @param array<string, mixed> $query
      * @throws MyDataAuthenticationException|MyDataException
      */
     public function get(MyDataRequest $request, array $query): string
@@ -26,6 +31,7 @@ class GuzzleGateway implements Gateway
     }
 
     /**
+     * @param array<string, mixed>|null $query
      * @throws MyDataAuthenticationException|MyDataException
      */
     public function post(MyDataRequest $request, ?array $query = null, ?string $body = null): string
@@ -34,6 +40,7 @@ class GuzzleGateway implements Gateway
     }
 
     /**
+     * @param array<string, mixed> $options Guzzle request options
      * @throws MyDataAuthenticationException|MyDataException
      */
     protected function send(string $method, MyDataRequest $request, array $options): string
@@ -67,13 +74,9 @@ class GuzzleGateway implements Gateway
      */
     protected function handleTransmissionException(GuzzleException $exception): never
     {
-        // Specific case for timeout exception (HTTP 28 for cURL)
         // Connection with myDATA was established, but the response took too long
-        if ($exception instanceof RequestException) {
-            $errorNo = $exception->getHandlerContext()['errno'] ?? null;
-            if ($errorNo === 28) {
-                throw new MyDataTimeoutException(previous: $exception);
-            }
+        if ($this->isTimeout($exception)) {
+            throw new MyDataTimeoutException(previous: $exception);
         }
 
         // In case the endpoint url is wrong or the connection timed out, myDATA is unreachable
@@ -101,11 +104,45 @@ class GuzzleGateway implements Gateway
     }
 
     /**
+     * Whether the request timed out after the connection with myDATA was established.
+     *
+     * Guzzle 8 reports these with dedicated exception classes; Guzzle 7 only exposes
+     * the cURL error number (28) in the handler context of a RequestException.
+     */
+    private function isTimeout(GuzzleException $exception): bool
+    {
+        if ($exception instanceof NetworkTimeoutException || $exception instanceof ResponseTimeoutException) {
+            return true;
+        }
+
+        return $exception instanceof RequestException
+            && method_exists($exception, 'getHandlerContext')
+            && ($exception->getHandlerContext()['errno'] ?? null) === 28;
+    }
+
+    /**
+     * The response of a failed request, if one was received. Guzzle 8 exposes it on
+     * ResponseException only; Guzzle 7 on every RequestException (nullable).
+     */
+    private function response(GuzzleException $exception): ?ResponseInterface
+    {
+        if ($exception instanceof ResponseException) {
+            return $exception->getResponse();
+        }
+
+        if ($exception instanceof RequestException && method_exists($exception, 'getResponse')) {
+            return $exception->getResponse();
+        }
+
+        return null;
+    }
+
+    /**
      * The body of a failed response, read from the start even if it has been read before.
      */
     private function body(GuzzleException $exception): string
     {
-        return $exception instanceof RequestException ? trim((string) $exception->getResponse()?->getBody()) : '';
+        return trim((string) $this->response($exception)?->getBody());
     }
 
     /**

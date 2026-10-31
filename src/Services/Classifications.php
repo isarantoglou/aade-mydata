@@ -10,7 +10,10 @@ use Firebed\AadeMyData\Enums\InvoiceType;
 
 class Classifications
 {
+    /** @var array<string, array<string, list<string>>> Classification types per category, per invoice type */
     private static array $incomeClassifications;
+
+    /** @var array<string, array<string, list<string>>> Classification types per category, per invoice type */
     private static array $expenseClassifications;
 
     private static function loadIncomeClassifications(): void
@@ -27,6 +30,9 @@ class Classifications
         }
     }
 
+    /**
+     * @return ($classificationCategory is null ? CategoryClassificationCollection : TypeClassificationCollection)
+     */
     public static function incomeClassifications(InvoiceType|string $invoiceType, IncomeClassificationCategory|string|null $classificationCategory = null): CategoryClassificationCollection|TypeClassificationCollection
     {
         self::loadIncomeClassifications();
@@ -48,6 +54,9 @@ class Classifications
         return new TypeClassificationCollection($classifications[$classificationCategory] ?? [], true);
     }
 
+    /**
+     * @return ($classificationCategory is null ? CategoryClassificationCollection : TypeClassificationCollection)
+     */
     public static function expenseClassifications(InvoiceType|string $invoiceType, ExpenseClassificationCategory|string|null $classificationCategory = null): CategoryClassificationCollection|TypeClassificationCollection
     {
         self::loadExpenseClassifications();

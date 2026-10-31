@@ -16,6 +16,13 @@ abstract class MyDataXmlRequest extends MyDataRequest
     use HasResponseDom;
 
     /**
+     * @template TData
+     * @template TResponse of ResponseDoc|StatementResponseDoc
+     * @param XMLWriter<TData> $writer
+     * @param XMLReader<TResponse> $reader
+     * @param TData $data
+     * @param array<string, mixed>|null $query
+     * @return TResponse
      * @throws MyDataException
      */
     protected function request(XMLWriter $writer, XMLReader $reader, mixed $data, ?array $query = null):ResponseDoc|StatementResponseDoc

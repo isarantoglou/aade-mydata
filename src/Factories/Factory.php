@@ -12,20 +12,27 @@ abstract class Factory
 {
     private static Generator $faker;
 
+    /** @var class-string<TModel> */
     protected string $modelName;
+
+    /** @var array<string, mixed> */
     protected array $state = [];
+
+    /** @var list<string> */
     protected array $except = [];
     protected int $count = 1;
 
     /**
-     * @param string $modelName
+     * @template T of Type
+     * @param class-string<T> $modelName
      * @param int $count
-     * @return Factory
+     * @return Factory<T>
      */
     public static function factoryForModel(string $modelName, int $count = 1): Factory
     {
         $factoryModelName = substr($modelName, strrpos($modelName, '\\') + 1);
 
+        /** @var class-string<Factory<T>> $factoryName */
         $factoryName = __NAMESPACE__ . '\\' . $factoryModelName . 'Factory';
 
         $factory = self::newFactory($factoryName);
@@ -34,13 +41,19 @@ abstract class Factory
         return $factory;
     }
 
+    /**
+     * @template TFactory of Factory
+     * @param class-string<TFactory> $factoryName
+     * @return TFactory
+     */
     public static function newFactory($factoryName): Factory
     {
         return new $factoryName();
     }
 
     /**
-     * @return TModel[]|TModel
+     * @param array<string, mixed> $attributes
+     * @return TModel|list<TModel> A single model when count is 1, otherwise a list
      */
     public function make(array $attributes = [])
     {
@@ -68,6 +81,10 @@ abstract class Factory
         return $this->count === 1 ? $instances[0] : $instances;
     }
 
+    /**
+     * @param list<string> $fields
+     * @return $this
+     */
     public function except(array $fields): self
     {
         $this->except = $fields;
@@ -75,6 +92,10 @@ abstract class Factory
         return $this;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     * @return $this
+     */
     public function state(array $attributes): self
     {
         $this->state = array_merge($attributes);
@@ -87,6 +108,9 @@ abstract class Factory
         return self::$faker ??= \Faker\Factory::create();
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     abstract public function definition(): array;
 }
 

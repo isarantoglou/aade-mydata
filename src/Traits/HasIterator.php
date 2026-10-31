@@ -39,7 +39,7 @@ trait HasIterator
     /**
      * Checks if the given offset exists in the attributes.
      *
-     * @param int|string $offset
+     * @param string $offset
      * @return bool
      */
     public function offsetExists(mixed $offset): bool
@@ -50,7 +50,7 @@ trait HasIterator
     /**
      * Gets the value at the given offset.
      *
-     * @param int|string $offset
+     * @param string $offset
      * @return Model|null
      */
     public function offsetGet(mixed $offset): mixed
@@ -61,7 +61,7 @@ trait HasIterator
     /**
      * Sets the value at the given offset.
      *
-     * @param int|string $offset
+     * @param string $offset
      * @param Model $value
      * @return void
      */
@@ -73,7 +73,7 @@ trait HasIterator
     /**
      * Unsets the value at the given offset.
      *
-     * @param int|string $offset
+     * @param string $offset
      * @return void
      */
     public function offsetUnset(mixed $offset): void

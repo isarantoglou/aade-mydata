@@ -15,11 +15,13 @@ use Firebed\AadeMyData\Exceptions\MyDataException;
 interface Gateway
 {
     /**
+     * @param array<string, mixed> $query
      * @throws MyDataException
      */
     public function get(MyDataRequest $request, array $query): string;
 
     /**
+     * @param array<string, mixed>|null $query
      * @throws MyDataException
      */
     public function post(MyDataRequest $request, ?array $query = null, ?string $body = null): string;

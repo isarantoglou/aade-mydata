@@ -6,32 +6,60 @@ use BackedEnum;
 
 abstract class Type
 {
+    /** @var array<string, mixed> */
     protected array $attributes = [];
+
+    /** @var list<string> */
     protected array $expectedOrder = [];
+
+    /** @var array<string, string> */
     protected array $casts = [];
+
+    /** @var array<string, bool> */
     private static array $enumCache = [];
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function __construct(array $attributes = [])
     {
         $this->setAttributes($attributes);
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public static function make(array $attributes = []): static
     {
-        return new static($attributes);
+        // TypeArray subclasses define their own constructors; make() is meant for the plain models.
+        return new static($attributes); // @phpstan-ignore new.static
     }
 
+    /**
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
     public function get($key, $default = null)
     {
         return $this->attributes[$key] ?? $default;
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return $this
+     */
     public function set($key, $value): static
     {
         $this->attributes[$key] = $this->castValue($key, $value);
         return $this;
     }
 
+    /**
+     * @param mixed $value
+     * @return mixed
+     */
     protected function castValue(string $key, $value)
     {
         if ($value === null) {
@@ -66,6 +94,11 @@ abstract class Type
         return $value;
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return $this
+     */
     public function push($key, $value = null): static
     {
         if ($value === null) {
@@ -76,16 +109,25 @@ abstract class Type
         return $this;
     }
 
+    /**
+     * @param string $key
+     */
     public function has($key): bool
     {
         return array_key_exists($key, $this->attributes);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function attributes(): array
     {
         return $this->attributes;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function sortedAttributes(): array
     {
         if (empty($this->expectedOrder)) {
@@ -102,6 +144,10 @@ abstract class Type
         return $attributes;
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     * @return $this
+     */
     public function setAttributes(array $attributes): static
     {
         foreach ($attributes as $key => $value) {
@@ -134,11 +180,17 @@ abstract class Type
         return $this;
     }
 
+    /**
+     * @return string|null The cast type: a class name, 'int' or 'float'
+     */
     public function getCast(string $name)
     {
         return $this->casts[$name] ?? null;
     }
 
+    /**
+     * @return list<string>
+     */
     public function getExpectedOrder(): array
     {
         return $this->expectedOrder;
@@ -165,7 +217,7 @@ abstract class Type
     /**
      * Returns an array representation of the object
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
@@ -176,6 +228,7 @@ abstract class Type
             } elseif (is_array($value)) {
                 $array[$key] = array_map(fn ($v) => $v instanceof Type ? $v->toArray() : $v, $value);
             } elseif ($this->isEnum($key) && is_object($value)) {
+                /** @var BackedEnum $value */
                 $array[$key] = $value->value;
             } else {
                 $array[$key] = $value;

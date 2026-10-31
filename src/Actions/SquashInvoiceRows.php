@@ -20,23 +20,24 @@ class SquashInvoiceRows
     private array $squashedRows = [];
 
     /**
-     * @var array Variable to store squashed income classifications.
+     * @var array<int|string, array<string, IncomeClassification>> Variable to store squashed income classifications.
      */
     private array $squashedIcls = [];
 
     /**
-     * @var array Variable to store squashed expenses classifications.
+     * @var array<int|string, array<string, ExpensesClassification>> Variable to store squashed expenses classifications.
      */
     private array $squashedEcls = [];
 
+    /** @var array<string, mixed> */
     private array $options = [];
 
     /**
      * Groups similar rows and returns a new array with the rows summed.
      *
      * @param InvoiceDetails[]|null $invoiceRows An array of invoice rows.
-     * @param array $options Additional options.
-     * @return array|null An array of squashed invoice rows.
+     * @param array<string, mixed> $options Additional options.
+     * @return InvoiceDetails[]|null An array of squashed invoice rows.
      */
     public function handle(?array $invoiceRows, array $options = []): ?array
     {
@@ -76,7 +77,7 @@ class SquashInvoiceRows
      * group of its own.
      *
      * @param InvoiceDetails[] $invoiceRows An array of invoice rows.
-     * @param array $options The squashing options; only 'vatAmountTolerance' affects grouping.
+     * @param array<string, mixed> $options The squashing options; only 'vatAmountTolerance' affects grouping.
      * @return InvoiceDetails[][]
      */
     public function groups(array $invoiceRows, array $options = []): array
@@ -177,7 +178,7 @@ class SquashInvoiceRows
      * Extracts data from the row for initializing a new squashed row.
      *
      * @param InvoiceDetails $row
-     * @return array
+     * @return array<string, mixed>
      */
     private function extractConcreteData(InvoiceDetails $row): array
     {
@@ -275,7 +276,7 @@ class SquashInvoiceRows
     /**
      * Merges results from squashed rows, classifications, and rows with RecType.
      *
-     * @return array
+     * @return InvoiceDetails[]
      */
     private function mergeAndRoundResults(): array
     {
@@ -306,9 +307,10 @@ class SquashInvoiceRows
     }
 
     /**
-     * @param ExpensesClassification[]|IncomeClassification[] $classifications
+     * @template TClassification of ExpensesClassification|IncomeClassification
+     * @param TClassification[] $classifications
      * @param int $lineNumber
-     * @return array
+     * @return list<TClassification>
      */
     private function mapClassifications(array $classifications, int &$lineNumber = 1): array
     {

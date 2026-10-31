@@ -6,7 +6,8 @@ use Firebed\AadeMyData\Models\Address;
 use Firebed\AadeMyData\Models\Party;
 
 /**
- * @extends Factory<Party>
+ * @template TParty of Party = Party
+ * @extends Factory<TParty>
  */
 class PartyFactory extends Factory
 {

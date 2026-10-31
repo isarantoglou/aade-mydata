@@ -259,6 +259,10 @@ class InvoiceSummary extends Type
         return $this->get('incomeClassification');
     }
 
+    /**
+     * @param IncomeClassification[]|null $incomeClassifications
+     * @return $this
+     */
     public function setIncomeClassifications(?array $incomeClassifications): static
     {
         return $this->set('incomeClassification', $incomeClassifications);
@@ -273,7 +277,7 @@ class InvoiceSummary extends Type
      * @param IncomeClassification|IncomeClassificationType|string|null $incomeClassification Χαρακτηρισμοί Εσόδων
      * @param IncomeClassificationCategory|string|null $classificationCategory
      * @param float|null $classificationAmount
-     * @return InvoiceSummary
+     * @return $this
      */
     public function addIncomeClassification(IncomeClassification|IncomeClassificationType|string|null $incomeClassification, IncomeClassificationCategory|string|null $classificationCategory = null, ?float $classificationAmount = null): static
     {
@@ -307,6 +311,10 @@ class InvoiceSummary extends Type
         return $this->get('expensesClassification');
     }
 
+    /**
+     * @param ExpensesClassification[]|null $expensesClassifications
+     * @return $this
+     */
     public function setExpensesClassifications(?array $expensesClassifications): static
     {
         return $this->set('expensesClassification', $expensesClassifications);
@@ -321,7 +329,7 @@ class InvoiceSummary extends Type
      * @param ExpensesClassification|ExpenseClassificationType|string|null $expenseClassification
      * @param ExpenseClassificationCategory|string|null $expenseClassificationCategory
      * @param float|null $classificationAmount
-     * @return InvoiceSummary
+     * @return $this
      */
     public function addExpensesClassification(ExpensesClassification|ExpenseClassificationType|string|null $expenseClassification, ExpenseClassificationCategory|string|null $expenseClassificationCategory = null, ?float $classificationAmount = null): static
     {

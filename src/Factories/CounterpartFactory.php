@@ -5,7 +5,7 @@ namespace Firebed\AadeMyData\Factories;
 use Firebed\AadeMyData\Models\Counterpart;
 
 /**
- * @extends Factory<Counterpart>
+ * @extends PartyFactory<Counterpart>
  */
 class CounterpartFactory extends PartyFactory
 {

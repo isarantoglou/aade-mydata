@@ -161,8 +161,8 @@ class Response extends Type
     /**
      * Χρησιμοποιείται από τα προγράμματα για τη δημιουργία QR Code τύπου Url
      *
-     * @param $qrUrl
-     * @return Response
+     * @param string|null $qrUrl
+     * @return $this
      * @version 1.0.7
      */
     public function setQrUrl($qrUrl): static

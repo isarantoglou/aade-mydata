@@ -43,13 +43,13 @@ class GroupQrCodeResponse extends Type
 
         $queryString = parse_url($groupQrUrl, PHP_URL_QUERY);
 
-        if ($queryString === null) {
+        if (! is_string($queryString)) {
             return null;
         }
 
         parse_str($queryString, $queryParams);
 
-        return $queryParams['groupId'] ?? null;
+        return is_string($queryParams['groupId'] ?? null) ? $queryParams['groupId'] : null;
     }
 
     /**

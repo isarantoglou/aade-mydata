@@ -145,6 +145,6 @@ class InvoiceIncomeClassification extends Type
         }
 
         $doc = $writer->getDomDocument();
-        return $doc->saveXML($doc->getElementsByTagName('incomeInvoiceClassification')->item(0));
+        return (string) $doc->saveXML($doc->getElementsByTagName('incomeInvoiceClassification')->item(0));
     }
 }

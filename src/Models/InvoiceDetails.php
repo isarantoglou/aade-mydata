@@ -148,7 +148,7 @@ class InvoiceDetails extends Type
      * </ul>
      *
      * @param RecType|int|null $recType Είδος Γραμμής
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setRecType(RecType|int|null $recType): static
     {
@@ -175,7 +175,7 @@ class InvoiceDetails extends Type
      * καυσίμου του παραστατικού.
      *
      * @param FuelCode|string|null $fuelCode Κωδικός Καυσίμου
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setFuelCode(FuelCode|string|null $fuelCode): static
     {
@@ -192,7 +192,7 @@ class InvoiceDetails extends Type
 
     /**
      * @param float|null $quantity Ποσότητα
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setQuantity(?float $quantity): static
     {
@@ -214,7 +214,7 @@ class InvoiceDetails extends Type
      * e-invoicing provider read the price per unit here.
      *
      * @param float|null $unitPrice Τιμή Μονάδας
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setUnitPrice(?float $unitPrice): static
     {
@@ -231,7 +231,7 @@ class InvoiceDetails extends Type
 
     /**
      * @param UnitMeasurement|string|null $measurementUnit Είδος Ποσότητας
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setMeasurementUnit(UnitMeasurement|string|null $measurementUnit): static
     {
@@ -248,7 +248,7 @@ class InvoiceDetails extends Type
 
     /**
      * @param InvoiceDetailType|string|null $invoiceDetailType Επισήμανση
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setInvoiceDetailType(InvoiceDetailType|string|null $invoiceDetailType): static
     {
@@ -347,7 +347,7 @@ class InvoiceDetails extends Type
      * κατηγορία συντελεστή 0% ΦΠΑ.
      *
      * @param VatExemption|string|null $vatExemptionCategory Κατηγορία Αιτίας Εξαίρεσης ΦΠΑ
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setVatExemptionCategory(VatExemption|string|null $vatExemptionCategory): static
     {
@@ -367,7 +367,7 @@ class InvoiceDetails extends Type
      * @param string|null $applicationDate
      * @param string|null $doy
      * @param string|null $shipId
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setDienergia(Ship|string|null $dienergia, ?string $applicationDate = null, ?string $doy = null, ?string $shipId = null): static
     {
@@ -462,7 +462,7 @@ class InvoiceDetails extends Type
      * </ul>
      *
      * @param float|null $withheldAmount Ποσό Παρακράτησης Φόρου
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setWithheldAmount(?float $withheldAmount): static
     {
@@ -488,7 +488,7 @@ class InvoiceDetails extends Type
 
     /**
      * @param WithheldPercentCategory|int|null $withheldPercentCategory Κατηγορία Συντελεστή Παρακράτησης Φόρου
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setWithheldPercentCategory(WithheldPercentCategory|int|null $withheldPercentCategory): static
     {
@@ -510,7 +510,7 @@ class InvoiceDetails extends Type
      * </ul>
      *
      * @param float|null $stampDutyAmount Ποσό Ψηφιακού Τέλους Συναλλαγής
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setStampDutyAmount(?float $stampDutyAmount): static
     {
@@ -536,7 +536,7 @@ class InvoiceDetails extends Type
 
     /**
      * @param StampCategory|string|null $stampDutyPercentCategory Κατηγορία Συντελεστή Ψηφιακού Τέλους Συναλλαγής
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setStampDutyPercentCategory(StampCategory|string|null $stampDutyPercentCategory): static
     {
@@ -558,7 +558,7 @@ class InvoiceDetails extends Type
      * </ul>
      *
      * @param float|null $feesAmount Ποσό Τελών
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setFeesAmount(float|null $feesAmount): static
     {
@@ -584,7 +584,7 @@ class InvoiceDetails extends Type
 
     /**
      * @param FeesPercentCategory|string|null $feesPercentCategory Κατηγορία Συντελεστή Τελών
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setFeesPercentCategory(FeesPercentCategory|string|null $feesPercentCategory): static
     {
@@ -601,7 +601,7 @@ class InvoiceDetails extends Type
 
     /**
      * @param OtherTaxesPercentCategory|string|null $otherTaxesPercentCategory Κατηγορία Συντελεστή Λοιπών Φόρων
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setOtherTaxesPercentCategory(OtherTaxesPercentCategory|string|null $otherTaxesPercentCategory): static
     {
@@ -623,7 +623,7 @@ class InvoiceDetails extends Type
      * </ul>
      *
      * @param float|null $otherTaxesAmount Ποσό Λοιπών Φόρων
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setOtherTaxesAmount(?float $otherTaxesAmount): static
     {
@@ -654,7 +654,7 @@ class InvoiceDetails extends Type
      * </ul>
      *
      * @param float|null $deductionsAmount Ποσό Κρατήσεων
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setDeductionsAmount(?float $deductionsAmount): static
     {
@@ -683,7 +683,7 @@ class InvoiceDetails extends Type
      * λόγους προς την υπηρεσία.
      *
      * @param string|null $lineComments Σχόλια Γραμμής
-     * @return InvoiceDetails
+     * @return $this
      */
     public function setLineComments(?string $lineComments): static
     {
@@ -715,7 +715,7 @@ class InvoiceDetails extends Type
      * @param IncomeClassification|IncomeClassificationType|string|null $type Χαρακτηρισμός Εσόδων
      * @param IncomeClassificationCategory|string|null $category
      * @param float|null $amount
-     * @return InvoiceDetails
+     * @return $this
      */
     public function addIncomeClassification(IncomeClassification|IncomeClassificationType|string|null $type, IncomeClassificationCategory|string|null $category = null, ?float $amount = null): static
     {
@@ -769,7 +769,7 @@ class InvoiceDetails extends Type
      * @param ExpensesClassification|ExpenseClassificationType|string|null $type Χαρακτηρισμός εξόδων
      * @param ExpenseClassificationCategory|string|null $category
      * @param float|null $amount
-     * @return InvoiceDetails
+     * @return $this
      */
     public function addExpensesClassification(ExpensesClassification|ExpenseClassificationType|string|null $type, ExpenseClassificationCategory|string|null $category = null, ?float $amount = null): static
     {
@@ -839,7 +839,7 @@ class InvoiceDetails extends Type
     }
 
     /**
-     * @return mixed|null Κωδικός Taric
+     * @return string|null Κωδικός Taric
      * @version 1.0.8
      */
     public function getTaricNo(): ?string

@@ -18,7 +18,7 @@ class TaxesTotals extends TypeArray
     ];
 
     /**
-     * @param TaxTotals|TaxTotals[] $taxes
+     * @param TaxTotals[] $taxes
      */
     public function __construct(array $taxes = [])
     {

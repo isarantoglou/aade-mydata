@@ -6,6 +6,9 @@ use DOMDocument;
 
 trait HasSchemaValidation
 {
+    /**
+     * @return list<array{field: string|null, message: string|null}>
+     */
     protected function validateSchema(string $xml, string $xsdFile): array
     {
         libxml_use_internal_errors(true);

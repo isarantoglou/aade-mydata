@@ -57,6 +57,7 @@ abstract class XMLWriter
     }
 
     /**
+     * @param array<mixed> $nodeValue
      * @throws DOMException
      */
     protected function buildArray(DOMNode $parent, string $nodeName, array $nodeValue): void
@@ -73,6 +74,7 @@ abstract class XMLWriter
     }
 
     /**
+     * @param array<string, mixed> $nodeValue
      * @throws DOMException
      */
     protected function processAssocArray(DOMNode $parent, string $nodeName, array $nodeValue): DOMNode
@@ -108,6 +110,9 @@ abstract class XMLWriter
         return $newNode;
     }
 
+    /**
+     * @param scalar|BackedEnum $value
+     */
     protected function toValue($value): ?string
     {
         if (is_bool($value)) {
@@ -115,7 +120,7 @@ abstract class XMLWriter
         }
 
         if ($value instanceof BackedEnum) {
-            return $value->value;
+            return (string) $value->value;
         }
 
         return (string) $value;

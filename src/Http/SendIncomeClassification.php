@@ -27,7 +27,7 @@ class SendIncomeClassification extends MyDataXmlRequest
      * entityVatNumber, διαφορετικά το εν λόγω πεδίο παραμένει κενό</li>
      * </ul>
      *
-     * @param IncomeClassificationsDoc|InvoiceIncomeClassification|array $incomeClassifications
+     * @param IncomeClassificationsDoc|InvoiceIncomeClassification|list<InvoiceIncomeClassification> $incomeClassifications
      * @return ResponseDoc
      * @throws MyDataException
      */

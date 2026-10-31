@@ -14,15 +14,18 @@ use Firebed\AadeMyData\Models\InvoiceDetails;
 
 class GroupClassifications
 {
+    /** @var array<array-key, array<array-key, float>> Amount per type, per category */
     private array $incomeClassifications = [];
+
+    /** @var array<array-key, array<array-key, array<array-key, array<array-key, array{amount: float, vatAmount: float}>>>> Amounts per VAT exemption, VAT category, type and category */
     private array $expensesClassifications = [];
 
     /**
      * Handles the grouping of income and expense classifications.
      *
      * @param InvoiceDetails[]|null $rows
-     * @param array $options
-     * @return array
+     * @param array<string, mixed> $options
+     * @return array{0: IncomeClassification[], 1: ExpensesClassification[]}
      */
     public function handle(?array $rows, array $options = []): array
     {
@@ -44,7 +47,7 @@ class GroupClassifications
     /**
      * Flattens the income classifications into an array.
      *
-     * @param array $options
+     * @param array<string, mixed> $options
      * @return IncomeClassification[]
      */
     private function flattenIncomeClassifications(array $options = []): array
@@ -77,7 +80,7 @@ class GroupClassifications
     /**
      * Flattens the expense classifications into an array.
      *
-     * @param array $options
+     * @param array<string, mixed> $options
      * @return ExpensesClassification[]
      */
     private function flattenExpensesClassifications(array $options = []): array

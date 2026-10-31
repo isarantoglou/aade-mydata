@@ -2,10 +2,10 @@
 
 namespace Firebed\AadeMyData\Xml;
 
-use Firebed\AadeMyData\Models\InvoicesDoc;
+use Firebed\AadeMyData\Models\ExpensesClassificationsDoc;
 
 /**
- * @extends XMLWriter<InvoicesDoc>
+ * @extends XMLWriter<ExpensesClassificationsDoc>
  */
 class ExpensesClassificationsDocWriter extends XMLWriter
 {
@@ -26,6 +26,6 @@ class ExpensesClassificationsDocWriter extends XMLWriter
 
         $this->buildArray($rootNode, 'expensesInvoiceClassification', iterator_to_array($data));
 
-        return $this->document->saveXML();
+        return (string) $this->document->saveXML();
     }
 }

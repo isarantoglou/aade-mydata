@@ -14,6 +14,9 @@ class PaymentMethodsDoc extends TypeArray
         'paymentMethods' => PaymentMethod::class,
     ];
 
+    /**
+     * @param PaymentMethod|PaymentMethod[] $paymentMethods
+     */
     public function __construct(PaymentMethod|array $paymentMethods = [])
     {
         parent::__construct('paymentMethods', $paymentMethods);

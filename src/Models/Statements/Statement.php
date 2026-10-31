@@ -363,6 +363,6 @@ class Statement extends Type
         }
 
         $doc = $writer->getDomDocument();
-        return $doc->saveXML($doc->getElementsByTagName('statement')->item(0));
+        return (string) $doc->saveXML($doc->getElementsByTagName('statement')->item(0));
     }
 }

@@ -17,7 +17,7 @@ class SendInvoices extends MyDataXmlRequest
      * <p>Το σώμα της κλήσης θα πρέπει είναι σε μορφή xml και περιέχει
      * το στοιχείο InvoicesDoc, το οποίο περιέχει ένα ή περισσότερα παραστατικά.</p>
      *
-     * @param InvoicesDoc|Invoice|Invoice[] $invoices InvoicesDoc
+     * @param InvoicesDoc|Invoice|list<Invoice> $invoices InvoicesDoc
      * @return ResponseDoc
      * @throws MyDataException
      */

@@ -10,6 +10,7 @@ use Firebed\AadeMyData\Xml\RequestedDocReader;
 
 class RequestedDocXmlFactory
 {
+    /** @var list<Invoice> */
     private array $invoices = [];
 
     public function addInvoice(Invoice $invoice): void

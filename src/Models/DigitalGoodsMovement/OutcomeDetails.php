@@ -41,7 +41,7 @@ class OutcomeDetails extends Type
     }
 
     /**
-     * @return PackagingDetail|null Έχει τιμή true αν η παράδοση έγινε χωρίς την παρουσία του παραλήπτη
+     * @return bool|null Έχει τιμή true αν η παράδοση έγινε χωρίς την παρουσία του παραλήπτη
      * @version 2.0.1
      */
     public function getDeliveredWithoutRecipient(): ?bool
@@ -60,7 +60,7 @@ class OutcomeDetails extends Type
     }
 
     /**
-     * @return PackagingDetail[]|null Λίστα με τις παραδοθείσες συσκευασίες
+     * @return list<PackagingDetail>|null Λίστα με τις παραδοθείσες συσκευασίες
      * @version 2.0.1
      */
     public function getDeliveredPackaging(): ?array
@@ -69,7 +69,7 @@ class OutcomeDetails extends Type
     }
 
     /**
-     * @param PackagingDetail[]|null $deliveredPackaging Λίστα με τις παραδοθείσες συσκευασίες
+     * @param PackagingDetail[] $deliveredPackaging Λίστα με τις παραδοθείσες συσκευασίες
      * @return static
      * @version 2.0.1
      */

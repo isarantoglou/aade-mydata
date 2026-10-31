@@ -37,7 +37,7 @@ class PaymentMethod extends Type
     /**
      * @param int $invoiceMark
      *
-     * @return PaymentMethod
+     * @return $this
      * @version 1.0.8
      */
     public function setInvoiceMark(int $invoiceMark): static
@@ -99,6 +99,9 @@ class PaymentMethod extends Type
      *
      * @version 1.0.8
      */
+    /**
+     * @return $this
+     */
     public function addPaymentMethodDetails(PaymentMethodDetail $paymentMethodDetails): static
     {
         return $this->push('paymentMethodDetails', $paymentMethodDetails);
@@ -136,9 +139,12 @@ class PaymentMethod extends Type
         }
 
         $doc = $writer->getDomDocument();
-        return $doc->saveXML($doc->getElementsByTagName('invoice')->item(0));
+        return (string) $doc->saveXML($doc->getElementsByTagName('invoice')->item(0));
     }
 
+    /**
+     * @return list<array{field: string|null, message: string|null}> The XSD validation errors
+     */
     public function validate(): array
     {
         libxml_use_internal_errors(true);

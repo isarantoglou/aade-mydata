@@ -12,6 +12,9 @@ use Throwable;
  * myDATA answered with an error document (ResponseDoc with errors) instead of
  * the response the request expects, either with HTTP 200 or with an HTTP error.
  */
+/**
+ * @phpstan-consistent-constructor
+ */
 class ErrorResponseException extends TransmissionFailedException
 {
     /**

@@ -15,7 +15,7 @@ class SummarizeInvoiceRows
 
     /**
      * @param InvoiceDetails[]|null $rows
-     * @param array $options
+     * @param array<string, mixed> $options
      * @return void
      */
     public function handle(?array $rows, array $options = []): void

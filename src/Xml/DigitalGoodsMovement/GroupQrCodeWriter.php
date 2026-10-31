@@ -21,6 +21,6 @@ class GroupQrCodeWriter extends XMLWriter
             $this->build($rootNode, $key, $value);
         }
 
-        return $this->document->saveXML();
+        return (string) $this->document->saveXML();
     }
 }

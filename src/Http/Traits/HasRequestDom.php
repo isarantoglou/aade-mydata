@@ -20,7 +20,7 @@ trait HasRequestDom
         }
 
         $this->requestDom->formatOutput = $formatOutput;
-        return $this->requestDom->saveXML();
+        return $this->requestDom->saveXML() ?: null;
     }
 
     public function getRequestElement(string $localName, int $index): ?string
@@ -30,6 +30,10 @@ trait HasRequestDom
         }
 
         $element = $this->requestDom->getElementsByTagName($localName)->item($index);
-        return $this->requestDom->saveXML($element);
+        if ($element === null) {
+            return null;
+        }
+
+        return $this->requestDom->saveXML($element) ?: null;
     }
 }

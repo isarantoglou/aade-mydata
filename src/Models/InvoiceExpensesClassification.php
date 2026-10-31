@@ -145,6 +145,6 @@ class InvoiceExpensesClassification extends Type
         }
 
         $doc = $writer->getDomDocument();
-        return $doc->saveXML($doc->getElementsByTagName('expensesInvoiceClassification')->item(0));
+        return (string) $doc->saveXML($doc->getElementsByTagName('expensesInvoiceClassification')->item(0));
     }
 }

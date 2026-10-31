@@ -41,7 +41,8 @@ trait SummarizesInvoiceTaxes
     {
         $amount = abs($tax->getTaxAmount());
 
-        match ($tax->getTaxType()) {
+        // A TaxTotals always has a taxType (it is mandatory in the XSD)
+        match ($tax->getTaxType()) { // @phpstan-ignore match.unhandled
             TaxType::TYPE_1 => $this->totalWithheldAmount += $amount,
             TaxType::TYPE_2 => $this->totalFeesAmount += $amount,
             TaxType::TYPE_3 => $this->totalOtherTaxesAmount += $amount,
@@ -50,9 +51,10 @@ trait SummarizesInvoiceTaxes
         };
 
         if ($tax->getTaxType() === TaxType::TYPE_1) {
-            $taxCategory = $tax->getTaxCategory() instanceof WithheldPercentCategory
-                ? $tax->getTaxCategory()
-                : WithheldPercentCategory::tryFrom($tax->getTaxCategory());
+            $taxCategory = $tax->getTaxCategory();
+            if (! $taxCategory instanceof WithheldPercentCategory) {
+                $taxCategory = is_int($taxCategory) ? WithheldPercentCategory::tryFrom($taxCategory) : null;
+            }
 
             if ($taxCategory !== null && ! $taxCategory->affectsTotalGrossValue()) {
                 $this->totalInformationalTaxAmount += $amount;

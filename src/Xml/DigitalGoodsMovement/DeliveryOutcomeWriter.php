@@ -2,11 +2,11 @@
 
 namespace Firebed\AadeMyData\Xml\DigitalGoodsMovement;
 
-use Firebed\AadeMyData\Models\DigitalGoodsMovement\Transport;
+use Firebed\AadeMyData\Models\DigitalGoodsMovement\DeliveryOutcome;
 use Firebed\AadeMyData\Xml\XMLWriter;
 
 /**
- * @extends XMLWriter<Transport>
+ * @extends XMLWriter<DeliveryOutcome>
  * @version 2.0.1
  */
 class DeliveryOutcomeWriter extends XMLWriter
@@ -21,6 +21,6 @@ class DeliveryOutcomeWriter extends XMLWriter
             $this->build($rootNode, $key, $value);
         }
 
-        return $this->document->saveXML();
+        return (string) $this->document->saveXML();
     }
 }

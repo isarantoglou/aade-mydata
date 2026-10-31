@@ -37,7 +37,7 @@ class PaymentMethodDetail extends Type
 
     /**
      * @param PaymentMethod|int $type Τύπος Πληρωμής
-     * @return PaymentMethodDetail
+     * @return $this
      */
     public function setType(PaymentMethod|int $type): static
     {

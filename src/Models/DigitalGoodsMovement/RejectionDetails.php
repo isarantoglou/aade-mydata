@@ -33,7 +33,7 @@ class RejectionDetails extends Type
 
     /**
      * @param string $reason Αιτιολογία απόρριψης
-     * @return RejectionDetails
+     * @return $this
      * @version 2.0.1
      */
     public function setReason(string $reason): static

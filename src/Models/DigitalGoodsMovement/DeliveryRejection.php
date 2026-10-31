@@ -23,7 +23,7 @@ class DeliveryRejection extends Type implements ValidatesSchema
         parent::__construct();
 
         if (is_numeric($qrUrlOrMark)) {
-            $this->setInvoiceMark($qrUrlOrMark);
+            $this->setInvoiceMark((int) $qrUrlOrMark);
         } elseif (is_string($qrUrlOrMark)) {
             $this->setQrUrl($qrUrlOrMark);
         }

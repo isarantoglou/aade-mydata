@@ -21,10 +21,13 @@ abstract class MyDataRequest
     private static ?string $user_id = null;
     private static ?string $subscription_key = null;
     private static ?string $env = null;
-    private static ?bool $is_provider = false;
+    private static bool $is_provider = false;
+
+    /** @var array<string, mixed> Guzzle request options */
     private static array $request_options;
 
-    private static ?HandlerStack $handler;
+    /** @var HandlerStack<callable(\Psr\Http\Message\RequestInterface, array<mixed>): \GuzzleHttp\Promise\PromiseInterface<\Psr\Http\Message\ResponseInterface, mixed>> */
+    private static HandlerStack $handler;
     private static ?Gateway $gateway = null;
 
     private ?Gateway $gateway_override = null;
@@ -137,7 +140,7 @@ abstract class MyDataRequest
      * Request options control various aspects of a request including, headers, query string
      * parameters, timeout settings, the body of a request, and much more.
      *
-     * @param array $requestOptions
+     * @param array<string, mixed> $requestOptions
      * @return void
      * @see https://docs.guzzlephp.org/en/stable/request-options.html
      */
@@ -200,6 +203,7 @@ abstract class MyDataRequest
     }
 
     /**
+     * @param array<string, mixed> $query
      * @throws MyDataException
      */
     protected function get(array $query): string
@@ -208,6 +212,7 @@ abstract class MyDataRequest
     }
 
     /**
+     * @param array<string, mixed>|null $query
      * @throws MyDataException
      */
     protected function post(?array $query = null, ?string $body = null): string
@@ -229,6 +234,10 @@ abstract class MyDataRequest
         return $responseXml;
     }
 
+    /**
+     * @param array<string, mixed> $array
+     * @return array<string, mixed>
+     */
     protected function filterArray(array $array): array
     {
         return array_filter($array, fn ($value) => ! is_null($value) && $value !== '');

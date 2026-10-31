@@ -11,11 +11,14 @@ use Firebed\AadeMyData\Http\SendInvoices;
 use Firebed\AadeMyData\Models\Invoice;
 use Firebed\AadeMyData\Models\InvoicesDoc;
 use Firebed\AadeMyData\Models\Response;
+use GuzzleHttp\Exception\NetworkTimeoutException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response as HttpResponse;
+use Psr\Http\Message\RequestInterface;
 use ReflectionClass;
+use Throwable;
 
 class SendInvoicesTest extends MyDataHttpTestCase
 {
@@ -154,13 +157,7 @@ class SendInvoicesTest extends MyDataHttpTestCase
     public function test_operation_timeout_throws_exception()
     {
         MyDataRequest::setHandler(new MockHandler([
-            new RequestException(
-                'Operation timed out',
-                new Request('POST', 'test'),
-                null,
-                null,
-                ['errno' => 28]
-            )
+            $this->operationTimedOut(new Request('POST', 'test')),
         ]));
 
         $this->expectException(MyDataTimeoutException::class);
@@ -188,5 +185,18 @@ class SendInvoicesTest extends MyDataHttpTestCase
 
         $this->assertEquals(5, $options['connect_timeout']);
         $this->assertEquals(30, $options['timeout']);
+    }
+
+    /**
+     * A cURL operation timeout as the installed Guzzle reports it: a dedicated
+     * exception in Guzzle 8, a RequestException with errno 28 in Guzzle 7.
+     */
+    private function operationTimedOut(RequestInterface $request): Throwable
+    {
+        if (class_exists(NetworkTimeoutException::class)) {
+            return new NetworkTimeoutException('Operation timed out', $request);
+        }
+
+        return new RequestException('Operation timed out', $request, null, null, ['errno' => 28]);
     }
 }

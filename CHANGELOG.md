@@ -7,16 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Upgrading
+
+6.x requires PHP 8.3 or newer. It works with Guzzle 7.9+ and Guzzle 8, so Laravel 12 (Guzzle 7) and Laravel 13 (Guzzle 7 or 8) apps can both install it.
+
+### Added
+
+- PHPStan at level 7 (`composer analyse`), with generics and array shapes documented on the models, factories, XML readers/writers, requests and classification services.
+
 ### Changed
 
+- Require PHP `^8.3` and `guzzlehttp/guzzle` `^7.9 || ^8.0`. The development dependencies move to PHPUnit 12 or 13 and `symfony/var-dumper` 7 or 8 (the newer majors need PHP 8.4).
+- `GuzzleGateway` reads timeouts and error responses from both Guzzle 7 and Guzzle 8 exceptions. With Guzzle 8, `NetworkTimeoutException` and `ResponseTimeoutException` become `MyDataTimeoutException`.
+- `IncomeClassificationCategory::for()` and `ExpenseClassificationCategory::for()` declare `TypeClassificationCollection`, the only type they ever returned.
 - `SendIncomeClassification` and `SendExpensesClassification` extend `MyDataXmlRequest`, like `SendInvoices`. `MyDataXmlRequest::request()` takes an optional `$query` argument.
 
 ### Fixed
 
+- `getRequestElement()` and `getResponseElement()` return `null` when no element matches. Before, they returned the whole request or response XML.
 - Parsing income and expenses classifications (e.g. from `RequestDocs` or `RequestTransmittedDocs`) keeps every `invoicesIncomeClassificationDetails`, `incomeClassificationDetailData`, `invoicesExpensesClassificationDetails` and `expensesClassificationDetailData` element. A single element no longer makes the getters fail with a `TypeError`, and repeated elements no longer overwrite each other.
 - `SendIncomeClassification` and `SendExpensesClassification` keep the request in `getRequestDom()` and set `getResponseDom()`. Before, the response replaced the request and `getResponseDom()` stayed `null`.
 - Iterating an empty `TypeArray` document (e.g. a `ResponseDoc` with no responses) no longer fails, and `first()` returns `null` on an empty document.
 - `IncomeClassificationsDoc` and `ExpensesClassificationsDoc` declare `InvoiceIncomeClassification` and `InvoiceExpensesClassification` as their items, so static analysis knows about `getInvoiceMark()` and `getClassificationMark()`.
+
+### Removed
+
+- The empty `CombinesClassifications` trait; its whole body was commented out.
 
 ## [5.14.0] - 2026-10-18
 

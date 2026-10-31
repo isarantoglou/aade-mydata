@@ -24,6 +24,6 @@ class StatementDocWriter extends XMLWriter
         // Build statement node
         $this->build($rootNode, 'statement', $data->get('statement'));
 
-        return $this->document->saveXML();
+        return (string) $this->document->saveXML();
     }
 }

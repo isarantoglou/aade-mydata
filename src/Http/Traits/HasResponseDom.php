@@ -22,7 +22,7 @@ trait HasResponseDom
         }
 
         $this->responseDom->formatOutput = $formatOutput;
-        return $this->responseDom->saveXML();
+        return $this->responseDom->saveXML() ?: null;
     }
 
     public function getResponseElement(string $localName, int $index): ?string
@@ -32,14 +32,18 @@ trait HasResponseDom
         }
 
         $element = $this->responseDom->getElementsByTagName($localName)->item($index);
-        return $this->responseDom->saveXML($element);
+        if ($element === null) {
+            return null;
+        }
+
+        return $this->responseDom->saveXML($element) ?: null;
     }
 
     /**
      * Parse the response with the given reader and keep its DOM for getResponseXML(),
      * also when the reader finds myDATA's errors in it and throws ErrorResponseException.
      *
-     * @template T
+     * @template T of \Firebed\AadeMyData\Models\Type
      * @param XMLReader<T> $reader
      * @return T
      * @throws ErrorResponseException

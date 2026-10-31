@@ -2,7 +2,6 @@
 
 namespace Firebed\AadeMyData\Enums;
 
-use Firebed\AadeMyData\Services\CategoryClassificationCollection;
 use Firebed\AadeMyData\Services\Classifications;
 use Firebed\AadeMyData\Services\TypeClassificationCollection;
 
@@ -120,7 +119,10 @@ enum ExpenseClassificationCategory: string
         };
     }
 
-    public function for(InvoiceType $type): CategoryClassificationCollection|TypeClassificationCollection
+    /**
+     * The classification types of this category for the invoice type.
+     */
+    public function for(InvoiceType $type): TypeClassificationCollection
     {
         return Classifications::expenseClassifications($type, $this);
     }

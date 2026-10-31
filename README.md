@@ -27,10 +27,11 @@ To use this package, you will need first a `aade id` and a `Subscription key`. Y
 
 - Development: [Sign up to mydata development api](https://mydata-dev-register.azurewebsites.net/)
 - Production: [Sign up to mydata production api](https://www.aade.gr/mydata)
-- guzzlehttp/guzzle >= 7.0
+- guzzlehttp/guzzle ^7.9 or ^8.0
 
 | Version | PHP | myDATA  | Support |
 |---------|-----|---------|---------|
+| ^v6.x   | 8.3 | v2.0.2  | Active  |
 | ^v5.x   | 8.1 | v2.0.2  | Active  |
 | ^v5.x   | 8.1 | v2.0.1  | Ended   |
 | ^v5.x   | 8.1 | v1.0.12 | Ended   |

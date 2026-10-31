@@ -53,6 +53,7 @@ class RequestDeliveryNoteStatus extends MyDataRequest
     }
 
     /**
+     * @param array<string, mixed> $query
      * @throws MyDataException
      */
     private function request(array $query): DeliveryNoteStatusResponse

@@ -3,10 +3,9 @@
 namespace Firebed\AadeMyData\Xml;
 
 use Firebed\AadeMyData\Models\RequestedE3Info;
-use Firebed\AadeMyData\Models\RequestedVatInfo;
 
 /**
- * @extends XMLReader<RequestedVatInfo>
+ * @extends XMLReader<RequestedE3Info>
  *
  * @version 1.0.10
  */

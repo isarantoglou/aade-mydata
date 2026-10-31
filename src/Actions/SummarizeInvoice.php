@@ -7,6 +7,9 @@ use Firebed\AadeMyData\Models\InvoiceSummary;
 
 class SummarizeInvoice
 {
+    /**
+     * @param array<string, mixed> $options
+     */
     public function handle(Invoice $invoice, array $options = []): InvoiceSummary
     {
         $summary = new InvoiceSummary();

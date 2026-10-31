@@ -15,10 +15,8 @@ class ClassificationTest extends TestCase
     private array $incomeClassifications;
     private array $expenseClassifications;
 
-    public function __construct(string $name)
+    protected function setUp(): void
     {
-        parent::__construct($name);
-
         $this->incomeClassifications = require __DIR__.'/../config/income-classifications.php';
         $this->expenseClassifications = require __DIR__.'/../config/expense-classifications.php';
     }

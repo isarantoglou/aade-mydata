@@ -32,7 +32,7 @@ class GenerateUid
      */
     private function normalizeSeries(string $series): string
     {
-        return self::NORMALIZE_SERIES
+        return self::NORMALIZE_SERIES // @phpstan-ignore ternary.alwaysTrue (a switch kept for when myDATA changes its format)
             ? mb_convert_encoding($series, 'ISO-8859-7', 'UTF-8')
             : $series;
     }

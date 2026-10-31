@@ -10,6 +10,10 @@ use Firebed\AadeMyData\Enums\IncomeClassificationType;
 use IteratorAggregate;
 use Traversable;
 
+/**
+ * @implements ArrayAccess<int|string, IncomeClassificationType|ExpenseClassificationType|string|null>
+ * @implements IteratorAggregate<int|string, IncomeClassificationType|ExpenseClassificationType|string>
+ */
 class TypeClassificationCollection implements ArrayAccess, IteratorAggregate
 {
     /**
@@ -40,7 +44,7 @@ class TypeClassificationCollection implements ArrayAccess, IteratorAggregate
         foreach ($this->classifications as $classification) {
             $enum = $this->toEnum($classification);
 
-            $results[$enum?->value ?? ""] = $enum?->label() ?? "";
+            $results[$enum->value ?? ""] = $enum?->label() ?? "";
         }
 
         return $results;
@@ -49,7 +53,7 @@ class TypeClassificationCollection implements ArrayAccess, IteratorAggregate
     /**
      * Returns the keys of the classifications array.
      *
-     * @return array<int|string>
+     * @return array<int|string, IncomeClassificationType|ExpenseClassificationType|string>
      */
     public function keys(): array
     {

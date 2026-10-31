@@ -57,7 +57,7 @@ class Invoice extends Type
 
     /**
      * Property to store the original invoice rows before squashing.
-     * @var array|null
+     * @var InvoiceDetails[]|null
      */
     protected ?array $originalInvoiceRows = null;
 
@@ -132,7 +132,7 @@ class Invoice extends Type
      * </ol>
      *
      * @param TransmissionFailure|int|null $transmissionFailure Κωδικός αδυναμίας επικοινωνίας παρόχου
-     * @return Invoice
+     * @return $this
      */
     public function setTransmissionFailure(TransmissionFailure|int|null $transmissionFailure): static
     {
@@ -180,7 +180,7 @@ class Invoice extends Type
     }
 
     /**
-     * @param PaymentMethods|PaymentMethodDetail[] $paymentMethods
+     * @param PaymentMethods|list<PaymentMethodDetail>|null $paymentMethods
      */
     public function setPaymentMethods(PaymentMethods|array|null $paymentMethods): static
     {
@@ -289,7 +289,7 @@ class Invoice extends Type
     /**
      * Returns the original invoice rows before squashing.
      *
-     * @return Invoice
+     * @return $this
      */
     public function unSquashInvoiceRows(): static
     {
@@ -309,7 +309,7 @@ class Invoice extends Type
     }
 
     /**
-     * @param array{enableClassificationIds: bool} $options
+     * @param array{enableClassificationIds?: bool} $options Use enableClassificationIds to number the summary classifications
      * @return static
      */
     public function summarizeInvoice(array $options = []): static
@@ -474,7 +474,7 @@ class Invoice extends Type
 
     /**
      * Είναι read-only - παρέχεται από το myDATA κατά την ανάκτηση του.
-     * @return DeliveryEvent[]|null Το σύνολο των γεγονότων του κύκλου ζωής (lifecycle) του παραστατικού διακίνησης.
+     * @return DeliveryLifecycle|null Το σύνολο των γεγονότων του κύκλου ζωής (lifecycle) του παραστατικού διακίνησης.
      * @version 2.0.1
      */
     public function getDeliveryLifecycle(): ?DeliveryLifecycle
@@ -501,9 +501,12 @@ class Invoice extends Type
         }
 
         $doc = $writer->getDomDocument();
-        return $doc->saveXML($doc->getElementsByTagName('invoice')->item(0));
+        return (string) $doc->saveXML($doc->getElementsByTagName('invoice')->item(0));
     }
 
+    /**
+     * @return list<array{field: string|null, message: string|null}> The XSD validation errors
+     */
     public function validate(): array
     {
         $xml = (new InvoicesDocWriter())->asXML(new InvoicesDoc($this));

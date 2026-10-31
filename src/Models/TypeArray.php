@@ -34,9 +34,11 @@ class TypeArray extends Type implements IteratorAggregate, ArrayAccess, Countabl
     }
 
     /**
-     * @param int $key
+     * Replaces the items; the key is ignored as the items are always stored under the child key.
+     *
+     * @param string $key
      * @param TType|TType[] $value
-     * @return static
+     * @return $this
      */
     public function set($key, $value): static
     {
@@ -47,7 +49,7 @@ class TypeArray extends Type implements IteratorAggregate, ArrayAccess, Countabl
 
     /**
      * @param TType $value
-     * @return static
+     * @return $this
      */
     public function add($value): static
     {
@@ -63,9 +65,11 @@ class TypeArray extends Type implements IteratorAggregate, ArrayAccess, Countabl
     }
 
     /**
-     * @param int $key
-     * @param null $value
-     * @return TypeArray
+     * Appends one or more items; the key is ignored as the items are always stored under the child key.
+     *
+     * @param string $key
+     * @param TType|TType[]|null $value
+     * @return $this
      */
     public function push($key, $value = null): static
     {

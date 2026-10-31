@@ -32,7 +32,7 @@ class SendExpensesClassification extends MyDataXmlRequest
      * </ul>
      * With this method the user can classify invoices that produce income.
      *
-     * @param ExpensesClassificationsDoc|InvoiceExpensesClassification[] $expensesClassifications
+     * @param ExpensesClassificationsDoc|list<InvoiceExpensesClassification> $expensesClassifications
      * @throws MyDataException
      */
     public function handle(ExpensesClassificationsDoc|array $expensesClassifications, bool $postPerInvoice = false): ResponseDoc

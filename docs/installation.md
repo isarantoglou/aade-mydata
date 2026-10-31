@@ -12,9 +12,9 @@ composer require firebed/aade-mydata
 ```json
 {
     "require": {
-      "php": "^8.1",
+      "php": "^8.3",
       "ext-dom": "*",
-      "guzzlehttp/guzzle": "^7.0.1"
+      "guzzlehttp/guzzle": "^7.9 || ^8.0"
     }
 }
 ```

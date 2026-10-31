@@ -13,6 +13,7 @@ class PaymentMethodsDocWriter extends XMLWriter
     private const XSI = 'http://www.w3.org/2001/XMLSchema-instance';
     private const INV = "http://www.aade.gr/myDATA/invoice/v1.0";
 
+    /** @var array<string, array<string, string>> */
     protected array $namespaces = [
         'paymentMethodDetails' => ['*' => self::INV],
         'ECRToken' => [
@@ -36,6 +37,6 @@ class PaymentMethodsDocWriter extends XMLWriter
 
         $this->buildArray($rootNode, 'paymentMethods', iterator_to_array($data));
 
-        return $this->document->saveXML();
+        return (string) $this->document->saveXML();
     }
 }

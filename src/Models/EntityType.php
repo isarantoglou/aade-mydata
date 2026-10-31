@@ -57,7 +57,7 @@ class EntityType extends Type
     /**
      * @param Party $entityData
      *
-     * @return EntityType
+     * @return $this
      * @version 1.0.7
      */
     public function setEntityData(Party $entityData): static

@@ -17,6 +17,9 @@ class TransportDetail extends Type
         'vehicleNumber',
     ];
 
+    /**
+     * @param string|array<string, mixed>|null $vehicleNumber The vehicle number, or the attributes
+     */
     public function __construct(string|array|null $vehicleNumber = null)
     {
         if (is_array($vehicleNumber)) {

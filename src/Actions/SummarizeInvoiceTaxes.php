@@ -12,7 +12,7 @@ class SummarizeInvoiceTaxes
 
     /**
      * @param TaxesTotals|null $taxes
-     * @param array $options
+     * @param array<string, mixed> $options
      * @return void
      */
     public function handle(?TaxesTotals $taxes, array $options = []): void

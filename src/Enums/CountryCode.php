@@ -469,7 +469,8 @@ enum CountryCode: string
 
     private function label_4(): string
     {
-        return match ($this) {
+        // Only the countries left over by label_1() to label_3() reach this match.
+        return match ($this) { // @phpstan-ignore match.unhandled
             self::SA => "Σαουδική Αραβία",
             self::SB => "Νήσοι Σολομώντος",
             self::SC => "Σεϋχέλλες",
@@ -533,6 +534,9 @@ enum CountryCode: string
         return in_array($this, self::europeanUnionCountries());
     }
 
+    /**
+     * @return list<self>
+     */
     public static function europeanUnionCountries(): array
     {
         return [

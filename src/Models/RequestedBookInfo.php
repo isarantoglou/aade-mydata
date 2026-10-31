@@ -14,6 +14,7 @@ use Firebed\AadeMyData\Traits\HasIterator;
  */
 class RequestedBookInfo extends Type
 {
+    /** @use HasIterator<mixed> */
     use HasIterator;
 
     protected array $casts = [

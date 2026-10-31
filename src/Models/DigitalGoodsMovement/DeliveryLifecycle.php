@@ -17,7 +17,7 @@ class DeliveryLifecycle extends TypeArray
     ];
 
     /**
-     * @param DeliveryEvent|DeliveryEvent[] $events
+     * @param DeliveryEvent[] $events
      */
     public function __construct(array $events = [])
     {

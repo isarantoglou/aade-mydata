@@ -33,7 +33,7 @@ class GroupQrCode extends Type implements ValidatesSchema
     }
 
     /**
-     * @param QrUrls|array $qrUrls Λίστα με τα URLs των QR codes των Δελτίων Αποστολής που περιλαμβάνονται στο Ομαδικό QR Code
+     * @param QrUrls|array<string> $qrUrls Λίστα με τα URLs των QR codes των Δελτίων Αποστολής που περιλαμβάνονται στο Ομαδικό QR Code
      * @return static
      * @version 2.0.1
      */

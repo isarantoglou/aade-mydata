@@ -53,7 +53,7 @@ class Party extends Type
      * από την αντίστοιχη λίστα χωρών όπως περιγράφεται στο ISO 3166
      *
      * @param CountryCode|string $country Ο κωδικός της χώρας
-     * @return Party
+     * @return $this
      */
     public function setCountry(CountryCode|string $country): static
     {
@@ -151,7 +151,7 @@ class Party extends Type
      * </ul>
      *
      * @param string|null $documentIdNo
-     * @return Party
+     * @return $this
      */
     public function setDocumentIdNo(?string $documentIdNo): static
     {
@@ -176,7 +176,7 @@ class Party extends Type
      * </ul>
      *
      * @param string|null $supplyAccountNo
-     * @return Party
+     * @return $this
      */
     public function setSupplyAccountNo(?string $supplyAccountNo): static
     {
@@ -201,7 +201,7 @@ class Party extends Type
      * παραστατικού.
      *
      * @param CountryCode|string|null $countryDocumentId Κωδ. Χώρας Έκδοσης Επίσημου Εγγράφου
-     * @return Party
+     * @return $this
      * @version 1.0.7
      */
     public function setCountryDocumentId(CountryCode|string|null $countryDocumentId): static

@@ -174,7 +174,7 @@ class InvoiceHeader extends Type
      * Ο κωδικός νομισμάτων προέρχεται από την αντίστοιχη λίστα σύμφωνα με το πρότυπο ISO4217.
      *
      * @param CurrencyCode|string|null $currency Νόμισμα
-     * @return InvoiceHeader
+     * @return $this
      */
     public function setCurrency(CurrencyCode|string|null $currency): static
     {
@@ -206,7 +206,7 @@ class InvoiceHeader extends Type
     }
 
     /**
-     * @return array|null Συσχετιζόμενα Παραστατικά (ΜΑΡΚ)
+     * @return list<int>|null Συσχετιζόμενα Παραστατικά (ΜΑΡΚ)
      */
     public function getCorrelatedInvoices(): ?array
     {
@@ -483,7 +483,7 @@ class InvoiceHeader extends Type
     }
 
     /**
-     * @return array|null Πολλαπλά Συνδεόμενα MARKs
+     * @return list<int>|null Πολλαπλά Συνδεόμενα MARKs
      * @version 1.0.9
      */
     public function getMultipleConnectedMarks(): ?array
@@ -509,7 +509,7 @@ class InvoiceHeader extends Type
      *
      * Δεν είναι αποδεκτό για τα παραστατικά των τύπων 1.6, 2.4 και 5.1.
      *
-     * @param array|null $multipleConnectedMarks Πολλαπλά Συνδεόμενα MARKs
+     * @param list<int>|null $multipleConnectedMarks Πολλαπλά Συνδεόμενα MARKs
      * @return $this
      * @version 1.0.9
      */
